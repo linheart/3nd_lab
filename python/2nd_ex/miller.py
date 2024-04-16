@@ -15,16 +15,25 @@ def brute_force_of_divisors(num):
     return q
 
 
-def miller_test(prime_numbers, n, t):
+def miller_test(n, t):
     q = brute_force_of_divisors(n - 1)
     a = [random.randint(2, n - 1) for _ in range(t)]
     res = 1
     for i in a:
-        if (i ** (n - 1)) % n != 1:
+        res = i % n
+        for j in range(2, n):
+            res *= i
+            res %= n
+        if res != 1:
             return -1
+
     for i in q:
         for j in a:
-            res *= j ** ((n - 1) / i) % n 
+            res = j % n 
+            deg = (n - 1) / i
+            for _ in range(2, int(deg) + 1):
+                res *= j
+                res %= n
             if res != 1:
                 break
         if res != 1:

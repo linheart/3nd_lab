@@ -1,5 +1,4 @@
 import miller
-from bf_of_div import brute_force_of_divisors
 
 # Sieve of Eratosthenes
 def sieve(num):
@@ -18,7 +17,13 @@ if __name__ == "__main__":
     num_size = int(input())
     if num_size < 2:
         raise Exception("Invalid input")
-    m = miller.make_m(prime_numbers, num_size)
-    n = miller.make_n(m)
-    for i in range(100):
-        print(miller.miller_test(prime_numbers, n, 10))
+    for i in range(10):
+        m = miller.make_m(prime_numbers, num_size)
+        n = miller.make_n(m)
+        res = miller.miller_test(n, 10)
+        if res == -1:
+            print(f"{n} - составное число")
+        elif res == 0:
+            print(f"вероятно, {n} - составное число")
+        else:
+            print(f"{n} - простое число")
