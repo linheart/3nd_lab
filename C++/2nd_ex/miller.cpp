@@ -29,5 +29,3 @@ int miller_test(int n, int t) {
   }
   return 1;
 }
-
-int make_n(int m) { return 2 * m + 1; }
