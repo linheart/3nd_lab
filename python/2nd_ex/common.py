@@ -44,8 +44,6 @@ def gen_prime_num(prime_numbers, num_size, flag):
             prime_num **= random.randint(0, num_size - 1)
         num *= prime_num
         if num > 2 ** num_size - 1:
-            num //= prime_num
-            if num >= 2 ** (num_size - 1):
-                return num
-            else:
-                num = 1
+            num = 1
+        elif num >= 2 ** (num_size - 1):
+            return num
