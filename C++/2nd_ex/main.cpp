@@ -1,26 +1,56 @@
-#include "common.h"
-#include "miller.h"
 #include "Pocklington.h"
+#include "common.h"
+#include "gost.h"
+#include "miller.h"
 #include <iostream>
 
 int main() {
+  cout << "1 - Miller's Test" << endl;
+  cout << "2 - The Pocklington Test" << endl;
+  cout << "3 - The procedure for generating prime numbers GOST R 34.10-94"
+       << endl;
+
+  int opt;
+  cout << "Select an option: ";
+  cin >> opt;
+
+  if (opt > 3 || opt < 1)
+    err();
+
   int num_size;
   cout << "Input bit size: ";
   cin >> num_size;
-  vector<int> prime_numbers;
-  prime_numbers = sieve(500);
+  if (num_size <= 2)
+    err();
 
-  for (int i = 1; i < 11; i++) {
-		int F = gen_prime_num(prime_numbers, num_size / 2 + 1, 1);
-		int n = make_n(F, num_size / 2);
-    int res = pocklington(F, n, 10);
-    if (res == -1)
-      cout << n << " sost" << endl;
-    else if (res == 0)
-      cout << n << " maybe prost" << endl;
-    else
-      cout << n << " prost" << endl;
-  }
+  vector<int> prime_numbers = sieve(500);
+  int res = 0;
+  int n;
 
+  if (opt == 1)
+    for (int i = 1; i < 11; i++) {
+      while (res != 1) {
+        int m = gen_prime_num(prime_numbers, num_size - 1, 1);
+        n = 2 * m + 1;
+        res = miller_test(n, 10);
+      }
+			res = 0;
+      cout << i << '\t' << n << endl;
+    }
+	else if (opt == 2)
+		for (int i = 1; i < 11; i++) {
+			while (res != 1) {
+				int F = gen_prime_num(prime_numbers, num_size / 2 + 1, 1);
+				n = make_n(F, num_size / 2);
+				res = pocklington_test(F, n, 10); 
+			}
+			res = 0;
+			cout << i << '\t' << n << endl;
+		}
+	else if (opt == 3)
+		for (int i = 1; i < 11; i++) {
+			int q = gen_prime_num(prime_numbers, num_size / 2, 0);
+			cout << i << '\t' << gen_prime(q, num_size) << endl;
+		}
   return 0;
 }

@@ -6,9 +6,11 @@
 #include <algorithm>
 #include <vector>
 #include <random>
+#include <iostream>
 
 using namespace std;
 
+void err();
 int rem_a(vector<int> a, int n);
 vector<int> sieve(int num);
 int gen_prime_num(vector<int> prime_numbers, int num_size, int flag);

@@ -1,5 +1,9 @@
 #include "common.h"
-#include <iostream>
+
+void err() {
+  cerr << "Invalid input" << endl;
+  exit(EXIT_FAILURE);
+}
 
 int rem_a(vector<int> a, int n) {
   int res = 0;
@@ -45,26 +49,26 @@ int gen_rand_num(int start, int end) {
 
 int gen_prime_num(vector<int> prime_numbers, int num_size, int flag) {
   int num = 1;
-  int prime_num = 1;
+  int prime_num;
+	int up_bound = pow(2, num_size) - 1;
+	int low_bound = pow(2, num_size - 1);
+
   while (1) {
     prime_num = prime_numbers[gen_rand_num(0, prime_numbers.size() - 1)];
 
     if (flag) {
-			int exp = gen_rand_num(0, num_size - 1);
-			int tmp = 1;
-			for (int i = 0; i < exp || tmp <= pow(2, num_size) - 1; i++) {
-				tmp *= prime_num;
-			}
-      prime_num = tmp / prime_num;
-		}
+			int max_exp = 1;
+      int tmp = prime_num;
+			for (; pow(prime_num, max_exp) <= up_bound || max_exp < 2; max_exp++)
+				;
+      num *= pow(prime_num, gen_rand_num(1, max_exp - 1));
+    } else
+      num = prime_num;
 
-    num *= prime_num;
-
-    if (num > pow(2, num_size) - 1)
-      num = 1;
-
-    else if (num >= pow(2, num_size - 1))
-        return num;
+		if (num >= low_bound && num <= up_bound)
+			return num;
+		else if (num >= up_bound)
+			num = 1;
   }
 }
 
