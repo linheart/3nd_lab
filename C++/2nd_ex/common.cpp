@@ -50,25 +50,25 @@ int gen_rand_num(int start, int end) {
 int gen_prime_num(vector<int> prime_numbers, int num_size, int flag) {
   int num = 1;
   int prime_num;
-	int up_bound = pow(2, num_size) - 1;
-	int low_bound = pow(2, num_size - 1);
+  int up_bound = pow(2, num_size) - 1;
+  int low_bound = pow(2, num_size - 1);
 
   while (1) {
     prime_num = prime_numbers[gen_rand_num(0, prime_numbers.size() - 1)];
 
     if (flag) {
-			int max_exp = 1;
+      int max_exp = 1;
       int tmp = prime_num;
-			for (; pow(prime_num, max_exp) <= up_bound || max_exp < 2; max_exp++)
-				;
+      for (; pow(prime_num, max_exp) <= up_bound || max_exp < 2; max_exp++)
+        ;
       num *= pow(prime_num, gen_rand_num(1, max_exp - 1));
     } else
       num = prime_num;
 
-		if (num >= low_bound && num <= up_bound)
-			return num;
-		else if (num >= up_bound)
-			num = 1;
+    if (num >= low_bound && num <= up_bound)
+      return num;
+    else if (num >= up_bound)
+      num = 1;
   }
 }
 

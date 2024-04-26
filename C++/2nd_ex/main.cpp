@@ -34,23 +34,23 @@ int main() {
         n = 2 * m + 1;
         res = miller_test(n, 10);
       }
-			res = 0;
+      res = 0;
       cout << i << '\t' << n << endl;
     }
-	else if (opt == 2)
-		for (int i = 1; i < 11; i++) {
-			while (res != 1) {
-				int F = gen_prime_num(prime_numbers, num_size / 2 + 1, 1);
-				n = make_n(F, num_size / 2);
-				res = pocklington_test(F, n, 10); 
-			}
-			res = 0;
-			cout << i << '\t' << n << endl;
-		}
-	else if (opt == 3)
-		for (int i = 1; i < 11; i++) {
-			int q = gen_prime_num(prime_numbers, num_size / 2, 0);
-			cout << i << '\t' << gen_prime(q, num_size) << endl;
-		}
+  else if (opt == 2)
+    for (int i = 1; i < 11; i++) {
+      while (res != 1) {
+        int F = gen_prime_num(prime_numbers, num_size / 2 + 1, 1);
+        n = make_n(F, num_size / 2);
+        res = pocklington_test(F, n, 10);
+      }
+      res = 0;
+      cout << i << '\t' << n << endl;
+    }
+  else if (opt == 3)
+    for (int i = 1; i < 11; i++) {
+      int q = gen_prime_num(prime_numbers, num_size / 2, 0);
+      cout << i << '\t' << gen_prime(q, num_size) << endl;
+    }
   return 0;
 }
